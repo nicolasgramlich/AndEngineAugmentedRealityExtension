@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.anddev.andengine.extension.camera;
+package org.anddev.andengine.extension.augmentedreality;
 
 import java.io.IOException;
 
@@ -59,6 +59,7 @@ class CameraPreviewSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
 	public void surfaceDestroyed(final SurfaceHolder pSurfaceHolder) {
 		this.mCamera.stopPreview();
+		this.mCamera.release();
 		this.mCamera = null;
 	}
 

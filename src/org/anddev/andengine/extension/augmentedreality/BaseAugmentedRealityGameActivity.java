@@ -1,4 +1,4 @@
-package org.anddev.andengine.extension.camera;
+package org.anddev.andengine.extension.augmentedreality;
 
 
 import org.anddev.andengine.opengl.view.RenderSurfaceView;
@@ -13,7 +13,7 @@ import android.view.ViewGroup.LayoutParams;
  * @author Nicolas Gramlich
  * @since 21:38:32 - 24.05.2010
  */
-public abstract class BaseCameraGameActivity extends BaseGameActivity {
+public abstract class BaseAugmentedRealityGameActivity extends BaseGameActivity {
 	// ===========================================================
 	// Constants
 	// ===========================================================
@@ -35,7 +35,7 @@ public abstract class BaseCameraGameActivity extends BaseGameActivity {
 		this.mCameraPreviewSurfaceView = new CameraPreviewSurfaceView(this);
 		this.addContentView(this.mCameraPreviewSurfaceView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 		
-		this.mRenderSurfaceView.setZOrderMediaOverlay(true);
+//		this.mRenderSurfaceView.setZOrderMediaOverlay(true);
 		this.mRenderSurfaceView.bringToFront();
 	}
 

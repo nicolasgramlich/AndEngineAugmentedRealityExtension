@@ -61,7 +61,7 @@ public abstract class BaseAugmentedRealityGameActivity extends BaseGameActivity 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		finish();
+//		finish();
 	}
 
 	// ===========================================================

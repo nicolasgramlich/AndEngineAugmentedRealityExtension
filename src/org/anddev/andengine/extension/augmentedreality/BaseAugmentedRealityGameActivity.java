@@ -1,8 +1,8 @@
 package org.anddev.andengine.extension.augmentedreality;
 
 
+import org.anddev.andengine.opengl.view.ComponentSizeChooser;
 import org.anddev.andengine.opengl.view.RenderSurfaceView;
-import org.anddev.andengine.opengl.view.GLSurfaceView.ComponentSizeChooser;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 import android.graphics.PixelFormat;

@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
 
 /**
+ * (c) 2010 Nicolas Gramlich 
+ * (c) 2011 Zynga Inc.
+ * 
  * @author Nicolas Gramlich
  * @since 21:38:32 - 24.05.2010
  */
@@ -48,12 +51,12 @@ public abstract class BaseAugmentedRealityGameActivity extends BaseGameActivity 
 	// ===========================================================
 	
 	protected void onSetContentView() {
-		this.mRenderSurfaceView = new RenderSurfaceView(this, this.mEngine);	
+		this.mRenderSurfaceView = new RenderSurfaceView(this);	
 
 		this.mRenderSurfaceView.setEGLConfigChooser(new ComponentSizeChooser(4, 4, 4, 4, 16, 0)); 
 		this.mRenderSurfaceView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
 
-		this.mRenderSurfaceView.applyRenderer();
+		this.mRenderSurfaceView.setRenderer(this.mEngine);
 
 		this.setContentView(this.mRenderSurfaceView, createSurfaceViewLayoutParams());
 	}

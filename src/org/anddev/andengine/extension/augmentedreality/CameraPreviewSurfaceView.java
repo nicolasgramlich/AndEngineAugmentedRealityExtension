@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.anddev.andengine.extension.augmentedreality;
 
 import java.io.IOException;
@@ -13,6 +10,9 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 /**
+ * (c) 2010 Nicolas Gramlich 
+ * (c) 2011 Zynga Inc.
+ * 
  * @author Nicolas Gramlich
  * @since 21:38:21 - 24.05.2010
  */

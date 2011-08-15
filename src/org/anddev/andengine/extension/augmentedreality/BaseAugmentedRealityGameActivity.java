@@ -1,7 +1,6 @@
 package org.anddev.andengine.extension.augmentedreality;
 
 
-import org.anddev.andengine.opengl.view.ComponentSizeChooser;
 import org.anddev.andengine.opengl.view.RenderSurfaceView;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
@@ -53,7 +52,7 @@ public abstract class BaseAugmentedRealityGameActivity extends BaseGameActivity 
 	protected void onSetContentView() {
 		this.mRenderSurfaceView = new RenderSurfaceView(this);	
 
-		this.mRenderSurfaceView.setEGLConfigChooser(new ComponentSizeChooser(4, 4, 4, 4, 16, 0)); 
+		this.mRenderSurfaceView.setEGLConfigChooser(4, 4, 4, 4, 16, 0); 
 		this.mRenderSurfaceView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
 
 		this.mRenderSurfaceView.setRenderer(this.mEngine);

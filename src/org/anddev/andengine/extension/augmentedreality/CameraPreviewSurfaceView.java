@@ -2,7 +2,7 @@ package org.anddev.andengine.extension.augmentedreality;
 
 import java.io.IOException;
 
-import org.anddev.andengine.util.Debug;
+import org.anddev.andengine.util.debug.Debug;
 
 import android.content.Context;
 import android.hardware.Camera;

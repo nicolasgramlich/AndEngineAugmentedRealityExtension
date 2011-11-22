@@ -55,7 +55,7 @@ public abstract class BaseAugmentedRealityGameActivity extends BaseGameActivity 
 		this.mRenderSurfaceView.setEGLConfigChooser(4, 4, 4, 4, 16, 0); 
 		this.mRenderSurfaceView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
 
-		this.mRenderSurfaceView.setRenderer(this.mEngine);
+		this.mRenderSurfaceView.setRenderer(this.mEngine, this);
 
 		this.setContentView(this.mRenderSurfaceView, createSurfaceViewLayoutParams());
 	}

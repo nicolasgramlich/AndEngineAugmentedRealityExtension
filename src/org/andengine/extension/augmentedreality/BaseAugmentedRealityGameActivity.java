@@ -1,8 +1,8 @@
-package org.anddev.andengine.extension.augmentedreality;
+package org.andengine.extension.augmentedreality;
 
 
-import org.anddev.andengine.opengl.view.RenderSurfaceView;
-import org.anddev.andengine.ui.activity.BaseGameActivity;
+import org.andengine.opengl.view.RenderSurfaceView;
+import org.andengine.ui.activity.BaseGameActivity;
 
 import android.graphics.PixelFormat;
 import android.os.Bundle;

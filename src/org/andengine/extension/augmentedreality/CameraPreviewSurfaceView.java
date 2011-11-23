@@ -1,8 +1,8 @@
-package org.anddev.andengine.extension.augmentedreality;
+package org.andengine.extension.augmentedreality;
 
 import java.io.IOException;
 
-import org.anddev.andengine.util.debug.Debug;
+import org.andengine.util.debug.Debug;
 
 import android.content.Context;
 import android.hardware.Camera;

@@ -5,11 +5,9 @@ import org.andengine.opengl.view.RenderSurfaceView;
 import org.andengine.ui.activity.BaseGameActivity;
 
 import android.graphics.PixelFormat;
-import android.os.Bundle;
-import android.view.ViewGroup.LayoutParams;
 
 /**
- * (c) 2010 Nicolas Gramlich 
+ * (c) 2010 Nicolas Gramlich
  * (c) 2011 Zynga Inc.
  * 
  * @author Nicolas Gramlich
@@ -29,17 +27,6 @@ public abstract class BaseAugmentedRealityGameActivity extends BaseGameActivity 
 	// ===========================================================
 	// Constructors
 	// ===========================================================
-	
-	@Override
-	protected void onCreate(final Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		this.mCameraPreviewSurfaceView = new CameraPreviewSurfaceView(this);
-		this.addContentView(this.mCameraPreviewSurfaceView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-		
-//		this.mRenderSurfaceView.setZOrderMediaOverlay(true);
-		this.mRenderSurfaceView.bringToFront();
-	}
 
 	// ===========================================================
 	// Getter & Setter
@@ -48,18 +35,25 @@ public abstract class BaseAugmentedRealityGameActivity extends BaseGameActivity 
 	// ===========================================================
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
-	
-	protected void onSetContentView() {
-		this.mRenderSurfaceView = new RenderSurfaceView(this);	
 
-		this.mRenderSurfaceView.setEGLConfigChooser(4, 4, 4, 4, 16, 0); 
+	@Override
+	protected void onSetContentView() {
+		this.mRenderSurfaceView = new RenderSurfaceView(this);
+
+		this.mRenderSurfaceView.setEGLConfigChooser(4, 4, 4, 4, 16, 0);
 		this.mRenderSurfaceView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
 
 		this.mRenderSurfaceView.setRenderer(this.mEngine, this);
 
-		this.setContentView(this.mRenderSurfaceView, createSurfaceViewLayoutParams());
+		this.setContentView(this.mRenderSurfaceView, BaseGameActivity.createSurfaceViewLayoutParams());
+
+		this.mCameraPreviewSurfaceView = new CameraPreviewSurfaceView(this, this.getEngine().getEngineOptions().getResolutionPolicy());
+		this.addContentView(this.mCameraPreviewSurfaceView, BaseGameActivity.createSurfaceViewLayoutParams());
+
+		this.mRenderSurfaceView.setZOrderMediaOverlay(true);
+		this.mRenderSurfaceView.bringToFront();
 	}
-	
+
 	@Override
 	protected void onPause() {
 		super.onPause();

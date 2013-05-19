@@ -62,12 +62,23 @@ class CameraPreviewSurfaceView extends SurfaceView implements SurfaceHolder.Call
 		this.mCamera.release();
 		this.mCamera = null;
 	}
-
-	public void surfaceChanged(final SurfaceHolder pSurfaceHolder, final int pPixelFormat, final int pWidth, final int pHeight) {
-		final Camera.Parameters parameters = this.mCamera.getParameters();
-		parameters.setPreviewSize(pWidth, pHeight);
-		this.mCamera.setParameters(parameters);
-		this.mCamera.startPreview();
+	
+	public void surfaceChanged(SurfaceHolder pSurfaceHolder, int pPixelFormat, int pWidth,
+			int pHeight) {
+		if (this.mSurfaceHolder.getSurface() == null) {
+			return;
+		}
+		try {
+			this.mCamera.stopPreview();
+		} catch (Exception e) {
+			Debug.e("Camera preview not stopped", e);
+		}
+		try {
+			this.mCamera.setPreviewDisplay(mSurfaceHolder);
+			this.mCamera.startPreview();
+		} catch (Exception e) {
+			Debug.e("Camera preview not started", e);
+		}
 	}
 	
 	// ===========================================================

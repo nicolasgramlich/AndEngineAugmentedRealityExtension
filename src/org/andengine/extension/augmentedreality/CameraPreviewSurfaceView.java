@@ -6,6 +6,7 @@ import org.andengine.util.debug.Debug;
 
 import android.content.Context;
 import android.hardware.Camera;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -62,12 +63,23 @@ class CameraPreviewSurfaceView extends SurfaceView implements SurfaceHolder.Call
 		this.mCamera.release();
 		this.mCamera = null;
 	}
-
-	public void surfaceChanged(final SurfaceHolder pSurfaceHolder, final int pPixelFormat, final int pWidth, final int pHeight) {
-		final Camera.Parameters parameters = this.mCamera.getParameters();
-		parameters.setPreviewSize(pWidth, pHeight);
-		this.mCamera.setParameters(parameters);
-		this.mCamera.startPreview();
+	
+	public void surfaceChanged(SurfaceHolder pSurfaceHolder, int pPixelFormat, int pWidth,
+			int pHeight) {
+		if (this.mSurfaceHolder.getSurface() == null) {
+			return;
+		}
+		try {
+			this.mCamera.stopPreview();
+		} catch (Exception e) {
+			Log.d("AndEngineAR", "Preview not stopped");
+		}
+		try {
+			this.mCamera.setPreviewDisplay(mSurfaceHolder);
+			this.mCamera.startPreview();
+		} catch (Exception e) {
+			Log.d("AndEngineAR", "Preview not started");
+		}
 	}
 	
 	// ===========================================================

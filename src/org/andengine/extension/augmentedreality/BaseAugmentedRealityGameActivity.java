@@ -3,13 +3,10 @@ package org.andengine.extension.augmentedreality;
 import org.andengine.opengl.view.RenderSurfaceView;
 import org.andengine.ui.activity.BaseGameActivity;
 
-import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 /**
  * (c) 2010 Nicolas Gramlich (c) 2011 Zynga Inc.

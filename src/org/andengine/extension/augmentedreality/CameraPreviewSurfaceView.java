@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.andengine.util.debug.Debug;
 
 import android.content.Context;
+import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -37,6 +38,7 @@ class CameraPreviewSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
 		this.mSurfaceHolder = this.getHolder();
 		this.mSurfaceHolder.addCallback(this);
+		this.mSurfaceHolder.setFormat(PixelFormat.TRANSLUCENT);
 		this.mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 	}
 	

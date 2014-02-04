@@ -1,11 +1,14 @@
 package org.andengine.extension.augmentedreality;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.andengine.util.debug.Debug;
 
 import android.content.Context;
 import android.hardware.Camera;
+import android.hardware.Camera.Size;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -64,16 +67,60 @@ class CameraPreviewSurfaceView extends SurfaceView implements SurfaceHolder.Call
 	}
 
 	public void surfaceChanged(final SurfaceHolder pSurfaceHolder, final int pPixelFormat, final int pWidth, final int pHeight) {
-		final Camera.Parameters parameters = this.mCamera.getParameters();
-		parameters.setPreviewSize(pWidth, pHeight);
-		this.mCamera.setParameters(parameters);
+		Camera.Parameters params = this.mCamera.getParameters();
+		List<Size> sizes = params.getSupportedPreviewSizes();
+		Size optimalSize = getOptimalPreviewSize(sizes, pWidth, pHeight);
+		params.setPreviewSize(optimalSize.width, optimalSize.height);
+		this.mCamera.setParameters(params);
 		this.mCamera.startPreview();
 	}
 	
 	// ===========================================================
 	// Methods
 	// ===========================================================
+	/**
+	 * Method to get the optimal size for the camera preview
+	 * @param sizes List of optimal sizes
+	 * @param w width
+	 * @param h height
+	 * @return Size the optimal size for the surface view
+	 */
+	private Size getOptimalPreviewSize(List<Size> sizes, int w, int h) {
+		final double ASPECT_TOLERANCE = 0.2;
+		double targetRatio = (double) w / h;
+		if (sizes == null)
+			return null;
 
+		Size optimalSize = null;
+		double minDiff = Double.MAX_VALUE;
+
+		int targetHeight = h;
+
+		// Try to find an size match aspect ratio and size
+		for (Size size : sizes) {
+			Log.d("Augmented Reality", "Checking size " + size.width + "w " + size.height + "h");
+			double ratio = (double) size.width / size.height;
+			if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE)
+				continue;
+			if (Math.abs(size.height - targetHeight) < minDiff) {
+				optimalSize = size;
+				minDiff = Math.abs(size.height - targetHeight);
+			}
+		}
+
+		// Cannot find the one match the aspect ratio, ignore the
+		// requirement
+		if (optimalSize == null) {
+			minDiff = Double.MAX_VALUE;
+			for (Size size : sizes) {
+				if (Math.abs(size.height - targetHeight) < minDiff) {
+					optimalSize = size;
+					minDiff = Math.abs(size.height - targetHeight);
+				}
+			}
+		}
+		return optimalSize;
+	}
 	// ===========================================================
 	// Inner and Anonymous Classes
 	// ===========================================================

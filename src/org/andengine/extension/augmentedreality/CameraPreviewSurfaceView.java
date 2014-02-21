@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.andengine.util.debug.Debug;
 
 import android.content.Context;
+import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -16,6 +17,7 @@ import android.view.SurfaceView;
  * @author Nicolas Gramlich
  * @since 21:38:21 - 24.05.2010
  */
+@SuppressWarnings("deprecation")
 class CameraPreviewSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 	// ===========================================================
 	// Constants
@@ -37,6 +39,7 @@ class CameraPreviewSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
 		this.mSurfaceHolder = this.getHolder();
 		this.mSurfaceHolder.addCallback(this);
+		this.mSurfaceHolder.setFormat(PixelFormat.TRANSLUCENT);
 		this.mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 	}
 	
@@ -52,6 +55,7 @@ class CameraPreviewSurfaceView extends SurfaceView implements SurfaceHolder.Call
 		this.mCamera = Camera.open();
 		try {
 			this.mCamera.setPreviewDisplay(pSurfaceHolder);
+			this.mCamera.startPreview();
 		} catch (IOException e) {
 			Debug.e("Error in Camera.setPreviewDisplay", e);
 		}
@@ -62,12 +66,23 @@ class CameraPreviewSurfaceView extends SurfaceView implements SurfaceHolder.Call
 		this.mCamera.release();
 		this.mCamera = null;
 	}
-
-	public void surfaceChanged(final SurfaceHolder pSurfaceHolder, final int pPixelFormat, final int pWidth, final int pHeight) {
-		final Camera.Parameters parameters = this.mCamera.getParameters();
-		parameters.setPreviewSize(pWidth, pHeight);
-		this.mCamera.setParameters(parameters);
-		this.mCamera.startPreview();
+	
+	public void surfaceChanged(SurfaceHolder pSurfaceHolder, int pPixelFormat, int pWidth,
+			int pHeight) {
+		if (this.mSurfaceHolder.getSurface() == null) {
+			return;
+		}
+		try {
+			this.mCamera.stopPreview();
+		} catch (Exception e) {
+			Debug.e("Camera preview not stopped", e);
+		}
+		try {
+			this.mCamera.setPreviewDisplay(mSurfaceHolder);
+			this.mCamera.startPreview();
+		} catch (Exception e) {
+			Debug.e("Camera preview not started", e);
+		}
 	}
 	
 	// ===========================================================

@@ -55,6 +55,7 @@ class CameraPreviewSurfaceView extends SurfaceView implements SurfaceHolder.Call
 		this.mCamera = Camera.open();
 		try {
 			this.mCamera.setPreviewDisplay(pSurfaceHolder);
+			this.mCamera.startPreview();
 		} catch (IOException e) {
 			Debug.e("Error in Camera.setPreviewDisplay", e);
 		}
